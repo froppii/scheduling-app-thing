@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import Calendar from './pages/Calendar';
+import Sidebar from './components/Sidebar';
+import { CalendarEvent } from './types';
+import { v4 as uuidv4 } from 'uuid';
+
+const Settings = () => <div className="p-4">Settings Page</div>;
+const Profile = () => <div className="p-4">Profile Page</div>;
+const Dashboard = () => <div className="p-4">Dashboard Page</div>;
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const addEvent = (data: { title: string; date: string, description: string }) => {
+    const newEvent: CalendarEvent = {
+      id: uuidv4(),
+      title: data.title,
+      date: new Date(data.date).toISOString(),
+      description: data.description,
+    };
+    setEvents([...events, newEvent]);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-1">
+          <Routes>
+            {/* temporary */}
+            {/* <Route
+              path="/"
+              element={<Login onLogin={() => setIsAuthenticated(true)} />}
+            />
+            <Route
+              path="/signup"
+              element={<Signup onSignup={() => setIsAuthenticated(true)} />}
+            /> */}
+        
+            <Route
+              path="/Calendar"
+              element={
+                <Calendar
+                  events={events}
+                  addEvent={addEvent}
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                />
+              }
+            />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<Navigate to="/Calendar" replace />} />
+          </Routes>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </Router>
+  );
+};
 
-export default App
+export default App;
