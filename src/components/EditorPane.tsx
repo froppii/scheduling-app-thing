@@ -1,7 +1,7 @@
 import { Note } from "../types/Note";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import ".../styles/markdown.css";
+import "../styles/markdown.css";
 
 type Props = {
     note?: Note;
@@ -15,9 +15,11 @@ export default function EditorPane({ note, updateNote, preview = false }: Props)
     return (
         <div className="flex-1 border-1 border-gray-200 p-4 overflow-auto">
             {preview ? (
-                <ReactMarkdown className="prose dark:prose-invert max-w-none" remarkPlugins={[remarkGfm]}>
+                <div className="prose dark:prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {note.content || "Nothing to preview"}
                 </ReactMarkdown>
+                </div>
             ) : (
                 <textarea
                     className="w-full h-full resize-none outline-none bg-transparent text-sm font-mono"

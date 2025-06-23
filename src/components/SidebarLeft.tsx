@@ -10,17 +10,28 @@ type Props = {
 export default function SidebarLeft({ notes, activeNoteId, setActiveNoteId, createNote }: Props) {
     return (
         <div className="w-64 bg-gray-100 border-r flex flex-col">
-            <div className="p-2 border-b flex justify-between items-center"
-            <button onClick={createNote} className="mb-4">New Note</button>
-            {notes.map((note) => (
-                <div
-                    key={note.id}
-                    className={`p-2 cursor-pointer ${note.id === activeNoteId ? "bg-gray-200" : ""}`}
-                    onClick={() => setActiveNoteId(note.id)}
+            <div className="p-2 border-b flex justify-between items-center">
+                <h2 className="text-sm font-bold">Notes</h2>
+                <button
+                    onClick={createNote}
+                    className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
-                    {note.title || "Untitled"}
-                </div>
-            ))}
+                    + New
+                </button>
+            </div>
+            <ul className="flex-1 overflow-auto">
+                {notes.map((note) => (
+                    <li
+                        key={note.id}
+                        className={`p-2 text-sm cursor-pointer hover:bg-blue-100 truncate ${
+                            activeNoteId === note.id ? "bg-blue-100 font-semibold" : ""
+                        }`}
+                        onClick={() => setActiveNoteId(note.id)}
+                    >
+                        {note.title || "untitled"}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

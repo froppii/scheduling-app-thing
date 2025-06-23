@@ -1,0 +1,15 @@
+.prose {
+    max-width: none;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.prose h1, .prose h2, .prose h3 {
+    margin-top: 1em;
+}
+
+.prose code {
+    background-color: #f4f4f4;
+    padding: 02em 0.4em;
+    border-radius: 4px;
+}
