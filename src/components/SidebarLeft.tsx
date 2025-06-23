@@ -1,11 +1,12 @@
 import { Note } from "../types/Note";
 
 type Props = {
-    notes: Note[];
-    activeNoteId: string | null;
-    setActiveNoteId: (id:string) => void;
-    createNote: () => void;
+  notes: Note[];
+  activeNoteId: string | null;
+  setActiveNoteId: (id: string) => void;
+  createNote: () => void;
 };
+
 
 export default function SidebarLeft({ notes, activeNoteId, setActiveNoteId, createNote }: Props) {
     return (

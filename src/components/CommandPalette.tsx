@@ -7,6 +7,10 @@ interface Command {
 
 type Props = {
     onClose: () => void;
+    actions: {
+        rename: () => void;
+        create: () => void;
+    }
 };
 
 export default function CommandPalette({ onClose }: Props) {
