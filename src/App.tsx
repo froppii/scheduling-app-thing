@@ -83,10 +83,16 @@ export default function App() {
           createNote={createNote}
         />
         <div className="flex-1 flex flex-col">
-          <Tabs 
+          <Tabs
             notes={notes}
             activeNoteId={activeNoteId}
             setActiveNoteId={setActiveNoteId}
+            onRenameRequest={(id, newTitle) => {
+              setNotes(prev =>
+                prev.map(note => (note.id === id ? { ...note, title: newTitle } : note))
+              );
+            }}
+            onReorder={(newOrder) => setNotes(newOrder)}
           />
           {activeNote ? (
             <div className="flex-1 flex flex-col">
